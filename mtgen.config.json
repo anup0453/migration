@@ -1,0 +1,4 @@
+{
+  "input": "./src/models",
+  "output": "./src/models/types/index.ts"
+}

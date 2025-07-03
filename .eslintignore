@@ -1,0 +1,8 @@
+node_modules
+lib
+dist
+coverage
+.nyc_output
+types
+*.d.ts
+*.json
