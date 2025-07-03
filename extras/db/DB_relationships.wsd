@@ -1,0 +1,146 @@
+@startuml DB Relationships
+
+' hide the E in the Entity box
+hide circle
+
+class chatRequest {
+  customer: ObjectId
+  datasource: ObjectId
+  usedGPTModel: ObjectId
+  usedEmbeddingModel: ObjectId
+  incomingTokenCount: Number
+  outgoingTokenCount: Number
+  calcTotalPrice: Number
+}
+
+class customer {
+  name : String
+  datasources: Array
+  aiSearch: Object
+  internalStorage: Object
+  type: String
+  settings: Object
+  apiKey: String
+  isActive: Boolean
+}
+
+class datasource {
+  displayName: String
+  type: String
+  frequency: String
+  settings: Object
+  owner: ObjectId
+  indexingStatus: String
+  lastIndexing: Date
+  isActive: Boolean
+  }
+
+class embedding {
+  fileName: String
+  chunkName: String
+  customer: ObjectId
+  datasource: ObjectId
+  import: ObjectId
+  usedModel: ObjectId
+  incomingTokenCount: Number
+  calcTotalPrice: Number
+}
+
+class embeddingModelVersion{
+  name: String
+  description: String
+  pricePerToken: Number
+  validFrom: Date
+}
+
+class import {
+  fileName: String
+  type: String
+  uploadType: String
+  index: String
+  filePath: String
+  azureFileId: String
+  status: String
+  datasource: ObjectId
+  extractedAt: Date
+  extractionLog: String
+  mimeType: String
+  urlFileName: String
+  chunkFiles: Array
+  isArchived: Boolean
+  archiveDate: Date
+  contentHash: String
+}
+
+class largeLanguageModelVersion {
+  name: String
+  description: String
+  pricePerIncomingToken: Number
+  pricePerOutgoingToken: Number
+  maxTokens: Number
+  validFrom: Date
+  validUntil: Date
+}
+
+class migration {
+  name: String
+  object: ObjectId
+  indexName: String
+  type: String
+  status: String
+}
+
+class translation {
+  customer: ObjectId
+  datasource: ObjectId
+  import: ObjectId
+  sourceLanguage: String
+  targetLanguage: String
+  usedModel: ObjectId
+  characterCount: Number
+  calcTotalPrice: Number
+  costType: String
+}
+
+class translationModelVersion {
+  name: String
+  description: String
+  pricePerCharacter: Number
+  validFrom: Date
+  validUntil: Date
+}
+
+class user {
+  firstname: String
+  lastname: String
+  role: String
+  departments: Array
+  email: String
+  apiKey: String
+  isActive: Boolean
+}
+
+chatRequest --> customer
+chatRequest --> datasource
+chatRequest --> largeLanguageModelVersion
+chatRequest --> embeddingModelVersion
+
+customer --> datasource
+
+datasource --> customer
+
+embedding --> customer
+embedding --> datasource
+embedding --> import
+embedding --> embeddingModelVersion
+
+import --> datasource
+
+'migration is in general possibly connected with all other entities
+
+translation --> customer
+translation --> datasource
+translation --> import
+translation --> translationModelVersion
+
+@enduml 

@@ -1,0 +1,2722 @@
+{
+  "info": {
+    "_postman_id": "7b76b75a-8dc8-4f26-a01e-ab79b11fcd4b",
+    "name": "GAIA Admin Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25894168"
+  },
+  "item": [
+    {
+      "name": "admin",
+      "item": [
+        {
+          "name": "Customer",
+          "item": [
+            {
+              "name": "Api Key",
+              "item": [
+                {
+                  "name": "Create new api key",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"description\": \"My new key\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/customer/:customerId/apiKey",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "admin",
+                        "customer",
+                        ":customerId",
+                        "apiKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "List all api keys of customer",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/customer/:customerId/apiKey",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "admin",
+                        "customer",
+                        ":customerId",
+                        "apiKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId",
+                          "value": "<customerId>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get api key by id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/customer/:customerId/apiKey/:id",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "customer",
+                        ":customerId",
+                        "apiKey",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId",
+                          "value": "<customerId>"
+                        },
+                        {
+                          "key": "id",
+                          "value": "<apiKeyId>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Delete api key",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/customer/:customerId/apiKey/:id",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "admin",
+                        "customer",
+                        ":customerId",
+                        "apiKey",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId",
+                          "value": "<customerId>"
+                        },
+                        {
+                          "key": "id",
+                          "value": "<apiKeyId>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "List all customers",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get customer by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update customer by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\",\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"sourceFilterActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200, \r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\":false\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update customer frontend settings Copy",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"frontendSettings\": {\r\n        \"welcomeSystemMessage\": \"Hello and welcome! Ask me anything and I will find a Siemens product according to the specification typped! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n        // \"hintTextButtonText\": \"Click on the blue icon to reset the history\",\r\n        // \"termsOfUseText\": \"Custom terms of use text\",\r\n        // \"historyResetMessage\": \"The history has been cleared\",\r\n        \"filterButtons\": [\r\n            {\r\n                \"displayName\": \"Test\",\r\n                \"keywords\": [\r\n                    \"VSR WIKI\"\r\n                ],\r\n                \"filter\": [\r\n                    \"folder1 eq 'tree1'\"\r\n                ],\r\n                \"fieldType\": \"Default\"\r\n                // \"fieldType\": \"ChoiceSet\",\r\n                // \"placeholder\": \"Field placeholder\",\r\n                // \"level\": 1,\r\n                // \"isMultiSelect\": true\r\n            },\r\n            {\r\n                \"displayName\": \"Button2\",\r\n                \"keywords\": [\r\n                    \"keyword3\",\r\n                    \"keyword4\"\r\n                ],\r\n                \"filter\": [\r\n                    \"folder1 eq 'tree2'\"\r\n                ],\r\n                \"fieldType\": \"Default\"\r\n                // \"fieldType\": \"ChoiceSet\",\r\n                // \"placeholder\": \"Field placeholder\",\r\n                // \"level\": 1\r\n                // \"isMultiSelect\": true\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/frontendSettings/:id",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "v1",
+                    "admin",
+                    "customer",
+                    "frontendSettings",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Pause by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/:id/pause",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", ":id", "pause"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Unpause by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/:id/unpause",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", ":id", "unpause"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete customer by id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (without ds)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\",\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"sourceFilterActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200, \r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\":false\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (without ds and WITH Ip Filter)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\", \r\n    \"ipFilteringSettings\": {\r\n        \"isIpFilteringEnabled\": true,\r\n        \"blockingMode\": \"block\",\r\n        \"whitelistedIpsArray\" : [\r\n            \"1.2.3.4\",\r\n            \"1.2.10.0/29\"\r\n        ]\r\n    },\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200, \r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\":false\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (with blob ds)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\",\r\n    \"datasource\": {\r\n        \"displayName\": \"<datasource-name>\",\r\n        \"frequency\": \"24h\",\r\n        \"settings\": {\r\n            \"azureBlobStorage\": {\r\n                \"connectionString\": \"<connection string>\",\r\n                \"containerName\": \"<container name>\"\r\n            }\r\n            // \"chunkSize\": 2000,\r\n            // \"chunkOverlap\": 15,\r\n            // \"defaultLanguage\": \"en\",\r\n            // \"delimiter\": [\">\", \"}\"],\r\n            // \"excludeByRegex\": [\"myRegex1\"],\r\n            // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n            // \"ocrActive\": false,\r\n            // \"preventXMLToJSON\": \"false\",\r\n            // \"sourceLinkActive\": \"true\",\r\n            // \"textSplitterStrategy\": \"delimiter\",\r\n            // \"translationActive\": false,\r\n            // \"useMarkdown\": \"true\",\r\n        },\r\n        \"keywords\": []\r\n    },\r\n    \"aiSearch\": {\r\n        \"skillsetName\": \"embeddings-relativepath-skillset\",\r\n        \"scoringProfile\": \"balanced_search\"\r\n    },\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200,\r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\": false\r\n    }\r\n    // ,\"filterButtons\":[\r\n    // {\r\n    //     \"displayName\": \"Filter\",\r\n    //     \"keywords\": [\"VSR WIKI\"],\r\n    //     \"filter\":[ \"folder1 eq 'XX'\" ] \r\n    //      \"targetKeys\":[\"SP X\"]\r\n    // }\r\n    // ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (with website ds)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\", \r\n    \"datasource\": {\r\n        \"displayName\": \"<datasource-name>\",\r\n        \"frequency\": \"24h\",\r\n        \"settings\": {\r\n            \"website\": {\r\n                \"rootUrls\": [\"https://www.abola.pt\"],\r\n                \"urlWhiteList\": [\"<white list entry>\"],\r\n                \"recursionDepth\": 2,\r\n                \"contentCssSelectors\": [],\r\n                \"crawlCssSelectors\": [],\r\n                \"scrollableElementSelector\": \"body\",\r\n                \"lazyLoadingEnforced\": false\r\n            }\r\n            // \"chunkSize\": 2000,\r\n            // \"chunkOverlap\": 15,\r\n            // \"defaultLanguage\": \"en\",\r\n            // \"delimiter\": [\">\", \"}\"],\r\n            // \"excludeByRegex\": [\"myRegex1\"],\r\n            // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n            // \"ocrActive\": false,\r\n            // \"preventXMLToJSON\": \"false\",\r\n            // \"sourceLinkActive\": \"true\",\r\n            // \"textSplitterStrategy\": \"delimiter\",\r\n            // \"translationActive\": false,\r\n            // \"useMarkdown\": \"true\",\r\n        }\r\n        ,\"keywords\": []\r\n    },\r\n    \"aiSearch\": {\r\n        \"skillsetName\": \"embeddings-relativepath-skillset\",\r\n        \"scoringProfile\": \"balanced_search\"\r\n    },\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200, \r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\":false\r\n    }\r\n    // ,\"frontendSettings\":{\r\n    //     \"welcomeSystemMessage\": \"Hello and welcome! Ask me anything and I will find a Siemens product according to the specification typped! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n    //     \"filterButtons\": [  \r\n    //         {\r\n    //             \"displayName\": \"Test\",\r\n    //             \"keywords\": [\"keyword1\"],\r\n    //             \"filter\":[ \"folder1 eq 'tree1'\" ]\r\n    //         },  \r\n    //         {  \r\n    //             \"displayName\": \"Button2\",  \r\n    //             \"keywords\": [\"keyword3\", \"keyword4\"],  \r\n    //             \"filter\": [\"folder1 eq 'tree2'\"]  \r\n    //         }  \r\n    //     ]  \r\n    //     }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (with polarion ds)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\",\r\n    \"datasource\": {\r\n        \"displayName\": \"<datasource-name>\",\r\n        \"frequency\": \"24h\",\r\n        \"settings\": {\r\n            \"polarion\": {\r\n                \"endpoint\": \"https://apepolarion-dev-2310.plmmscloudsolutions.com/polarion\",\r\n                \"accessToken\": \"<accessToken>\",\r\n                \"project\": \"AKM_Kn_Artifact_Template_Project\",\r\n                \"query\": \"type:(akm_checklist akm_exmpl_del akm_guidance akm_howto akm_lessons akm_practice akm_template akm_white_paper) AND status:published\",\r\n                \"fields\": [\r\n                    \"description\",\r\n                    \"status\",\r\n                    \"updated\",\r\n                    \"title\"\r\n                ]\r\n            }\r\n            // \"chunkSize\": 2000,\r\n            // \"chunkOverlap\": 15,\r\n            // \"defaultLanguage\": \"en\",\r\n            // \"delimiter\": [\">\", \"}\"],\r\n            // \"excludeByRegex\": [\"myRegex1\"],\r\n            // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n            // \"ocrActive\": false,\r\n            // \"preventXMLToJSON\": \"false\",\r\n            // \"sourceLinkActive\": \"true\",\r\n            // \"textSplitterStrategy\": \"delimiter\",\r\n            // \"translationActive\": false,\r\n            // \"useMarkdown\": \"true\",\r\n        },\r\n        \"keywords\": []\r\n    },\r\n    \"aiSearch\": {\r\n        \"skillsetName\": \"embeddings-relativepath-skillset\",\r\n        \"scoringProfile\": \"balanced_search\"\r\n    },\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200,\r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"tracingEnabled\": false,\r\n        \"ignoreOpenAIParamsInBody\": false\r\n    }\r\n    // ,\"frontendSettings\":{\r\n    //     \"welcomeSystemMessage\": \"Hello and welcome! Ask me anything and I will find a Siemens product according to the specification typped! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n    //     \"filterButtons\": [  \r\n    //         {\r\n    //             \"displayName\": \"Test\",\r\n    //             \"keywords\": [\"keyword1\"],\r\n    //             \"filter\":[ \"folder1 eq 'tree1'\" ]\r\n    //         },  \r\n    //         {  \r\n    //             \"displayName\": \"Button2\",  \r\n    //             \"keywords\": [\"keyword3\", \"keyword4\"],  \r\n    //             \"filter\": [\"folder1 eq 'tree2'\"]  \r\n    //         }  \r\n    //     ]  \r\n    //     }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (with sharepoint ds)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\", \r\n    \"datasource\": {\r\n        \"displayName\": \"<datasource-name>\",\r\n        \"frequency\": \"24h\",\r\n        \"settings\": {\r\n            \"sharepoint\": {\r\n                \"url\": \"https://siemens.sharepoint.com/teams/AIBoosterfor8D267\",\r\n                \"elements\": [\r\n                    \"lists\",\r\n                    \"pages\"\r\n                ],\r\n                \"whiteList\": [],\r\n                \"pageWhiteList\": []\r\n            }\r\n            // \"chunkSize\": 2000,\r\n            // \"chunkOverlap\": 15,\r\n            // \"defaultLanguage\": \"en\",\r\n            // \"delimiter\": [\">\", \"}\"],\r\n            // \"excludeByRegex\": [\"myRegex1\"],\r\n            // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n            // \"ocrActive\": false,\r\n            // \"preventXMLToJSON\": \"false\",\r\n            // \"sourceLinkActive\": \"true\",\r\n            // \"textSplitterStrategy\": \"delimiter\",\r\n            // \"translationActive\": false,\r\n            // \"useMarkdown\": \"true\",\r\n        }\r\n        ,\"keywords\": []\r\n    },\r\n    \"aiSearch\": {\r\n        \"skillsetName\": \"embeddings-relativepath-skillset\",\r\n        \"scoringProfile\": \"balanced_search\"\r\n    },\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200, \r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\":false\r\n    }\r\n    // ,\"frontendSettings\":{\r\n    //     \"welcomeSystemMessage\": \"Hello and welcome! Ask me anything and I will find a Siemens product according to the specification typped! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n    //     \"filterButtons\": [  \r\n    //         {\r\n    //             \"displayName\": \"Test\",\r\n    //             \"keywords\": [\"keyword1\"],\r\n    //             \"filter\":[ \"folder1 eq 'tree1'\" ]\r\n    //         },  \r\n    //         {  \r\n    //             \"displayName\": \"Button2\",  \r\n    //             \"keywords\": [\"keyword3\", \"keyword4\"],  \r\n    //             \"filter\": [\"folder1 eq 'tree2'\"]  \r\n    //         }  \r\n    //     ]  \r\n    //     }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (with api ds)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\", \r\n    \"datasource\": {\r\n        \"displayName\": \"<datasource-name>\",\r\n        \"frequency\": \"24h\",\r\n        \"settings\": {\r\n            \"api\": {\r\n                \"endpoint\": \"<api-route>\",\r\n                \"authorizationHeader\": \"<bearer or basic token>\",\r\n                \"extraHeaders\": [\r\n                    {\r\n                        \"key\": \"<key>\",\r\n                        \"value\": \"<value>\"\r\n                    }\r\n                ],\r\n                \"fileNameField\": \"<schema definition of the field defining the fielName (unique)>\",\r\n                \"payloadField\": \"<schema deginition of the field defining what is the payload (array with items to be chunked)>\",\r\n                \"includeFields\": [],\r\n                \"excludeFields\": [],\r\n                \"updatedAtField\": \"<schema definition of the field that defines the date within an item in the payload when the item was modified last>\"\r\n            }\r\n            // \"chunkSize\": 2000,\r\n            // \"chunkOverlap\": 15,\r\n            // \"defaultLanguage\": \"en\",\r\n            // \"delimiter\": [\">\", \"}\"],\r\n            // \"excludeByRegex\": [\"myRegex1\"],\r\n            // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n            // \"ocrActive\": false,\r\n            // \"preventXMLToJSON\": \"false\",\r\n            // \"sourceLinkActive\": \"true\",\r\n            // \"textSplitterStrategy\": \"delimiter\",\r\n            // \"translationActive\": false,\r\n            // \"useMarkdown\": \"true\",\r\n        }\r\n        ,\"keywords\": []\r\n    },\r\n    \"aiSearch\": {\r\n        \"skillsetName\": \"embeddings-relativepath-skillset\",\r\n        \"scoringProfile\": \"balanced_search\"\r\n    },\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200, \r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\":false\r\n    }\r\n    // ,\"frontendSettings\":{\r\n    //     \"welcomeSystemMessage\": \"Hello and welcome! Ask me anything and I will find a Siemens product according to the specification typped! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n    //     \"filterButtons\": [  \r\n    //         {\r\n    //             \"displayName\": \"Test\",\r\n    //             \"keywords\": [\"keyword1\"],\r\n    //             \"filter\":[ \"folder1 eq 'tree1'\" ]\r\n    //         },  \r\n    //         {  \r\n    //             \"displayName\": \"Button2\",  \r\n    //             \"keywords\": [\"keyword3\", \"keyword4\"],  \r\n    //             \"filter\": [\"folder1 eq 'tree2'\"]  \r\n    //         }  \r\n    //     ]  \r\n    //     }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Onboard customer (with wiki ds)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"<customer-name>\",\r\n    \"datasource\": {\r\n        \"displayName\": \"<datasource-name>\",\r\n        \"frequency\": \"24h\",\r\n        \"settings\": {\r\n            \"wiki\": {\r\n                \"baseUrl\": \"<baseUrl>\"\r\n            }\r\n            // \"chunkSize\": 2000,\r\n            // \"chunkOverlap\": 15,\r\n            // \"defaultLanguage\": \"en\",\r\n            // \"delimiter\": [\">\", \"}\"],\r\n            // \"excludeByRegex\": [\"myRegex1\"],\r\n            // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n            // \"ocrActive\": false,\r\n            // \"preventXMLToJSON\": \"false\",\r\n            // \"sourceLinkActive\": \"true\",\r\n            // \"textSplitterStrategy\": \"delimiter\",\r\n            // \"translationActive\": false,\r\n            // \"useMarkdown\": \"true\",\r\n        },\r\n        \"keywords\": []\r\n    },\r\n    \"aiSearch\": {\r\n        \"skillsetName\": \"embeddings-relativepath-skillset\",\r\n        \"scoringProfile\": \"balanced_search\"\r\n    },\r\n    \"settings\": {\r\n        \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n        \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n        \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n        \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n        \"topN\": 7,\r\n        \"sourceLinkActive\": true,\r\n        \"dynamicNActive\": false,\r\n        \"temperature\": 0.0,\r\n        \"maxResponseTokens\": 1200,\r\n        \"topP\": 0.2,\r\n        \"presencePenalty\": 0,\r\n        \"frequencyPenalty\": 0,\r\n        \"stop\": null,\r\n        \"historyCount\": 10,\r\n        \"loadBalancerRegion\": \"emea\",\r\n        \"defaultGptVersion\": \"gpt-4o\",\r\n        \"defaultEmbeddingVersion\": \"text-embedding-ada-002\",\r\n        \"ignoreOpenAIParamsInBody\": false\r\n    }\r\n    // ,\"frontendSettings\":{\r\n    //     \"welcomeSystemMessage\": \"Hello and welcome! Ask me anything and I will find a Siemens product according to the specification typped! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n    //     \"filterButtons\": [  \r\n    //         {\r\n    //             \"displayName\": \"Test\",\r\n    //             \"keywords\": [\"keyword1\"],\r\n    //             \"filter\":[ \"folder1 eq 'tree1'\" ]\r\n    //         },  \r\n    //         {  \r\n    //             \"displayName\": \"Button2\",  \r\n    //             \"keywords\": [\"keyword3\", \"keyword4\"],  \r\n    //             \"filter\": [\"folder1 eq 'tree2'\"]  \r\n    //         }  \r\n    //     ]  \r\n    //     }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/customer/onboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "customer", "onboard"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Datasource",
+          "item": [
+            {
+              "name": "List all datasources",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get datasource by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<datasource id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update datasource by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"keywords\": [\"myNewKeyword\"]\r\n    // ... other fields of datasource\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<datasource id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete datasource by id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<datasource id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create datasource (blob)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"azureBlobStorage\": {\r\n            \"connectionString\": \"<connection string from azure blob storage\",\r\n            \"containerName\": \"<name of container in azure blob storage>\"\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"forceCleanParsing\": false,\r\n    \"keywords\": [],\r\n    \"owner\": \"<id of the owner (customer to set as owner)>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create datasource (website)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"website\": {\r\n            \"rootUrls\": [\r\n                \"<root url>\"\r\n            ],\r\n            \"urlWhiteList\": [\r\n                \"<white list entry>\"\r\n            ],\r\n            \"recursionDepth\": 2,\r\n            \"contentCssSelectors\": [],\r\n            \"crawlCssSelectors\": [],\r\n            \"scrollableElementSelector\": \"body\",\r\n            \"lazyLoadingEnforced\": false\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": [],\r\n    \"owner\": \"<id of the owner (customer to set as owner)>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create datasource (sharepoint)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"sharepoint\": {\r\n            \"url\": \"<sharepoint url like: https://siemens.sharepoint.com/teams/DI-GAIA-DEV>\",\r\n            \"elements\": [\r\n                \"lists\",\r\n                \"pages\"\r\n            ],\r\n            \"whiteList\": [],\r\n            \"pageWhiteList\": []\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": [],\r\n    \"owner\": \"<id of the owner (customer to set as owner)>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create datasource (polarion)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"polarion\": {\r\n            \"endpoint\": \"https://apepolarion-dev-2310.plmmscloudsolutions.com/polarion\",\r\n            \"accessToken\": \"<accessToken>\",\r\n            \"project\": \"AKM_Kn_Artifact_Template_Project\",\r\n            \"query\": \"type:(akm_checklist akm_exmpl_del akm_guidance akm_howto akm_lessons akm_practice akm_template akm_white_paper) AND status:published\",\r\n            \"fields\": [\r\n                \"description\",\r\n                \"status\",\r\n                \"updated\",\r\n                \"title\"\r\n            ]\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": [],\r\n    \"owner\": \"<id of the owner (customer to set as owner)>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create datasource (api)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"api\": {\r\n            \"endpoint\": \"<api-route>\",\r\n            \"authorizationHeader\": \"<bearer or basic token>\",\r\n            \"extraHeaders\": [\r\n                {\r\n                    \"key\": \"<key>\",\r\n                    \"value\": \"<value>\"\r\n                }\r\n            ],\r\n            \"fileNameField\": \"<schema definition of the field defining the fielName (unique)>\",\r\n            \"payloadField\": \"<schema deginition of the field defining what is the payload (array with items to be chunked)>\",\r\n            \"includeFields\": [],\r\n            \"excludeFields\": [],\r\n            \"updatedAtField\": \"<schema definition of the field that defines the date within an item in the payload when the item was modified last>\"\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": [],\r\n    \"owner\": \"<id of the owner (customer to set as owner)>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create datasource (wiki)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"wiki\": {\r\n            \"baseUrl\": \"<baseUrl>\"\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": [],\r\n    \"owner\": \"<id of the owner (customer to set as owner)>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Trigger Rechunking",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{worker_base_url}}/v1/rechunk",
+                  "host": ["{{worker_base_url}}"],
+                  "path": ["v1", "rechunk"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "InternalTool",
+          "item": [
+            {
+              "name": "List all Internal Tools",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/internalTool",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "internalTool"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Internal tool by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/internalTool/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "internalTool", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "aa"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Internal tool by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"isActive\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/internalTool/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "internalTool", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "66a26b37493c854f2e6da982"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Bing tool",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"bing_search\",\r\n    \"type\": \"bingSearch\",\r\n    \"settings\": {\r\n        \"bingSearch\": {\r\n            \"numberRecords\": 10,\r\n            \"language\": \"en\"\r\n        }\r\n    },\r\n    \"description\": \"Tool to search over Bing\",\r\n    \"owner\": \"679b75ec4ea132c0ff439ee3\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/internalTool",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "internalTool"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Snowflake tool",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"snowflake\",\r\n    \"type\": \"snowflake\",\r\n    \"settings\": {\r\n        \"snowflake\": {\r\n      \"account\": \"sdc-prd01\",\r\n      \"username\": \"DEV_COMMUNICATIONS_TU_ETL_GENAI_ENRICHED_CUSTOMER\",\r\n      \"warehouse\": \"DEV_COMMUNICATIONS_ETL\",\r\n      \"database\": \"DEV_COMMUNICATIONS\",\r\n      \"role\": \"DEV_COMMUNICATIONS_ETL_RESTRICTED\",\r\n      \"table\":[\"DEV_COMMUNICATIONS.BOMBORA.REPORT_INSIGHTS\"],\r\n      \"customerPrivateKey\": \"-----BEGIN RSA PRIVATE KEY-----\\\\nXXXXXX\\\\n-----END RSA PRIVATE KEY-----\",\r\n      \"passphrase\": \"ZZZZZ\"\r\n        }\r\n    },\r\n    \"description\": \"Query snowflake tables\",\r\n    \"owner\": \"66bb370677765a9a9b26ed15\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/internalTool/",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "internalTool", ""]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Gaia tool",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/internalTool/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "internalTool", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "User",
+          "item": [
+            {
+              "name": "List all users",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/user",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get user by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/user/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "user", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update user by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstname\": \"Florian\",\r\n    \"lastname\": \"Prechtl\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/user/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "user", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create user",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstname\": \"Maximilian\",\r\n    \"lastname\": \"Kimmel\",\r\n    \"role\": \"superadmin\",\r\n    \"departments\": [],\r\n    \"email\": \"max@izz.ai\",\r\n    \"apiKey\": \"QBot_Dev_API-Key\",\r\n    \"isActive\": true,\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/user",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "user"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Azure",
+          "item": [
+            {
+              "name": "Index",
+              "item": [
+                {
+                  "name": "Create index",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"new_index\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/azure/index",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "azure", "index"]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Indexer",
+              "item": [
+                {
+                  "name": "Run indexer",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/azure/index/:name",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "azure", "index", ":name"],
+                      "variable": [
+                        {
+                          "key": "name",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Reset indexer",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/azure/index/:name",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "azure", "index", ":name"],
+                      "variable": [
+                        {
+                          "key": "name",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Datasource",
+              "item": [
+                {
+                  "name": "New Request",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ModelVersions",
+          "item": [
+            {
+              "name": "LLM",
+              "item": [
+                {
+                  "name": "Create llm",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"gpt-4o\",\r\n  \"description\": \"Default GPT model\",\r\n  \"pricePerIncomingToken\": 0.00004,\r\n  \"pricePerOutgoingToken\": 0.0003,\r\n  \"pricePerCachedOutgoingToken\": 0.0002,\r\n  \"maxTokens\": 128000\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/largeLanguageModelVersion",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "largeLanguageModelVersion"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get llm by name",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"\",\r\n  \"price\": 13.37,\r\n  \"unit\": \"\",\r\n  \"description\": \"\",\r\n  \"type\": \"GPT\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/largeLanguageModelVersion/name/:name",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "admin",
+                        "largeLanguageModelVersion",
+                        "name",
+                        ":name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "name",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get llm by id",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"\",\r\n  \"price\": 13.37,\r\n  \"unit\": \"\",\r\n  \"description\": \"\",\r\n  \"type\": \"GPT\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/largeLanguageModelVersion/:id",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "admin",
+                        "largeLanguageModelVersion",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "EBM",
+              "item": [
+                {
+                  "name": "Create ebm",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"text-embedding-ada-002\",\r\n  \"pricePerToken\": 0.00003,\r\n  \"description\": \"Default Embedding model\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/embeddingModelVersion",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "embeddingModelVersion"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get ebm by name",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"\",\r\n  \"price\": 13.37,\r\n  \"unit\": \"\",\r\n  \"description\": \"\",\r\n  \"type\": \"GPT\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/embeddingModelVersion/name/:name",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "admin",
+                        "embeddingModelVersion",
+                        "name",
+                        ":name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "name",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get ebm by id",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"\",\r\n  \"price\": 13.37,\r\n  \"unit\": \"\",\r\n  \"description\": \"\",\r\n  \"type\": \"GPT\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/embeddingModelVersion/:id",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "embeddingModelVersion", ":id"],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "TLM",
+              "item": [
+                {
+                  "name": "Create tlm",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"translation\",\r\n  \"description\": \"Default Translation model\",\r\n  \"pricePerCharacter\": 0.009261\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/translationModelVersion",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "translationModelVersion"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get tlm by name",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"\",\r\n  \"price\": 13.37,\r\n  \"unit\": \"\",\r\n  \"description\": \"\",\r\n  \"type\": \"GPT\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/translationModelVersion/name/:name",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "v1",
+                        "admin",
+                        "translationModelVersion",
+                        "name",
+                        ":name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "name",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get ebm by id",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"\",\r\n  \"price\": 13.37,\r\n  \"unit\": \"\",\r\n  \"description\": \"\",\r\n  \"type\": \"GPT\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/admin/translationModelVersion/:id",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "admin", "translationModelVersion", ":id"],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Model Deployment",
+          "item": [
+            {
+              "name": "Create modelDeployment",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"instanceName\": \"gaia-dev-openai\",\r\n  \"endpoint\": \"https://gaia-dev-openai.openai.azure.com/\",\r\n  \"deploymentName\": \"text-embedding-ada-002\",\r\n  \"modelName\": \"text-embedding-ada-002\",\r\n  \"modelVersion\": \"2\",\r\n  \"openAiVersion\": \"2023-12-01-preview\",\r\n  \"isPTU\": false,\r\n  \"key\": \"<some key>\",\r\n  \"region\": \"emea\",\r\n  \"type\": \"llm\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/modelDeployment",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "modelDeployment"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update modelDeployment by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"endpoint\": \"<changed_endpoint>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/modelDeployment/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "modelDeployment", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "66b245cbb98b9384e023547f"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all modelDeployments",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/modelDeployment",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "modelDeployment"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get modelDeployment by id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/modelDeployment/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "modelDeployment", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "66b0b44931a9a29e02893487"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get  modelDeployment by name",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/modelDeployment/name/:name",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "modelDeployment", "name", ":name"],
+                  "variable": [
+                    {
+                      "key": "name",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete modelDeployment by id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/modelDeployment/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "modelDeployment", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "KPI",
+          "item": [
+            {
+              "name": "Get KPI",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/kpi?from=2024-03-01&to=2024-05-13&scale=day&type=embedding",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "kpi"],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2024-03-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2024-05-13"
+                    },
+                    {
+                      "key": "scale",
+                      "value": "day"
+                    },
+                    {
+                      "key": "type",
+                      "value": "embedding"
+                    },
+                    {
+                      "key": "customer",
+                      "value": "<customerId>",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Log",
+          "item": [
+            {
+              "name": "Set log level (Gateway)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"level\": \"info\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/log/level",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "log", "level"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Set log level (Worker)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"level\": \"info\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{worker_base_url}}/v1/log/level",
+                  "host": ["{{worker_base_url}}"],
+                  "path": ["v1", "log", "level"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Charge",
+          "item": [
+            {
+              "name": "Run Cost Charging",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"customers\": [\r\n        \"<customer id>\"\r\n    ],\r\n    \"allCustomers\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/charge",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "charge"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create custom charge for customer",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"customer\": \"<customerId>\",\r\n  \"description\": \"<custom charge description/explanation>\",\r\n  \"calcTotalPrice\": 1234,\r\n  \"chargeableAt\": \"2024-07-15T00:00:00.000Z\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/charge/custom",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "charge", "custom"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Agent",
+          "item": [
+            {
+              "name": "List all Agents",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/agent",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "agent"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Agent by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/agent/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "agent", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Agent",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"isActive\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/agent/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "agent", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Agent",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"owner\":\"<customer id of owner>\",\r\n    \"displayName\": \"<agent name>\",\r\n    \"type\": \"react\", //or custom\r\n    \"description\": \"<description of agent>\",\r\n    \"systemMessage\": \"<agent system message>\",\r\n    \"iterationLimit\": 3,\r\n    \"tracingSpace\": \"\",\r\n    \"tracingProject\": \"\",\r\n    \"tracingKey\": \"\",\r\n    \"bindTools\": [\r\n                    {\r\n                        \"type\": \"rag\",\r\n                        \"agentToolApiKey\": \"\",\r\n                        \"description\": \"\",\r\n                        \"agentToolName\": \"\"\r\n                    },\r\n                    {\r\n                        \"type\": \"bing\",\r\n                        \"agentToolApiKey\": \"\",\r\n                        \"description\": \"\",\r\n                        \"agentToolName\": \"\"\r\n                    }\r\n                ],\r\n    \"settings\":\r\n    {\r\n        \"agentDeploymentName\": \"\",\r\n        \"agentApiVersion\": \"\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/agent",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "agent"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Agent",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/agent/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "agent", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "basic",
+        "basic": [
+          {
+            "key": "password",
+            "value": "{{api_key}}",
+            "type": "string"
+          },
+          {
+            "key": "username",
+            "value": "{{username}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        }
+      ]
+    },
+    {
+      "name": "client",
+      "item": [
+        {
+          "name": "OpenAI",
+          "item": [
+            {
+              "name": "Chat Completion with deploymentName",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"when is the next sl benfica match?\"\r\n        }\r\n    ]\r\n    // ,\r\n    // \"maxTokens\": 1500,\r\n    // \"temperature\": 0.1,\r\n    // \"frequencyPenalty\": 0,\r\n    // \"presencePenalty\": 0,\r\n    // \"stop\": [\"\"],\r\n    // \"topP\": 0.9,\r\n    // \"topN\": 5, \r\n    // \"internalTools\": [\"\"],   \r\n    // \"filter\": [\"folder1 eq 'tree1'\"],\r\n    // \"keywords\": [\"colors\", \"trees\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/openai/deployments/:deploymentName/chat/completions",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "openai",
+                    "deployments",
+                    ":deploymentName",
+                    "chat",
+                    "completions"
+                  ],
+                  "variable": [
+                    {
+                      "key": "deploymentName",
+                      "value": "gpt-4o"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Chat Completion without deploymentName",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"system\",\r\n            \"content\": \"You are a helpful ai assistant.\"\r\n        },\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"1+1?\"\r\n        }\r\n    ],\r\n    \"model\": \"gpt-4o\"\r\n    // ,\r\n    // \"maxTokens\": 1500,\r\n    // \"temperature\": 0.1,\r\n    // \"frequencyPenalty\": 0,\r\n    // \"presencePenalty\": 0,\r\n    // \"stop\": [\"\"],\r\n    // \"topP\": 0.9,\r\n    // \"topN\": 5, \r\n    // \"internalTools\": [\"snowflake\"],\r\n    // \"filter\": [\"folder1 eq 'tree1'\"],\r\n    // \"keywords\": [\"colors\", \"trees\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/chat/completions",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "chat", "completions"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Embedding",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"input\": \"what is the acp level?\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/openai/deployments/:deploymentName/embeddings",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "openai",
+                    "deployments",
+                    ":deploymentName",
+                    "embeddings"
+                  ],
+                  "variable": [
+                    {
+                      "key": "deploymentName",
+                      "value": "text-embedding-ada-002"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "PlainLLM",
+          "item": [
+            {
+              "name": "OpenAI",
+              "item": [
+                {
+                  "name": "OpenAI - Chat Completion model by param",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"when is the next sl benfica match?\"\r\n        }\r\n    ]\r\n    // ,\r\n    // \"maxTokens\": 1500,\r\n    // \"temperature\": 0.1,\r\n    // \"frequencyPenalty\": 0,\r\n    // \"presencePenalty\": 0,\r\n    // \"stop\": [\"\"],\r\n    // \"topP\": 0.9,\r\n    // \"topN\": 5, \r\n    // \"internalTools\": [\"\"],   \r\n    // \"filter\": [\"folder1 eq 'tree1'\"],\r\n    // \"keywords\": [\"colors\", \"trees\"]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/plainLLM/openai/openai/deployments/:deploymentName/chat/completions",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "plainLLM",
+                        "openai",
+                        "openai",
+                        "deployments",
+                        ":deploymentName",
+                        "chat",
+                        "completions"
+                      ],
+                      "variable": [
+                        {
+                          "key": "deploymentName",
+                          "value": "gpt-4o"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "OpenAI - Chat Completion model by body",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"system\",\r\n            \"content\": \"You are a helpful ai assistant.\"\r\n        },\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"1+1?\"\r\n        }\r\n    ],\r\n    \"model\": \"gpt-4o\"\r\n    // ,\r\n    // \"maxTokens\": 1500,\r\n    // \"temperature\": 0.1,\r\n    // \"frequencyPenalty\": 0,\r\n    // \"presencePenalty\": 0,\r\n    // \"stop\": [\"\"],\r\n    // \"topP\": 0.9,\r\n    // \"topN\": 5, \r\n    // \"internalTools\": [\"snowflake\"],\r\n    // \"filter\": [\"folder1 eq 'tree1'\"],\r\n    // \"keywords\": [\"colors\", \"trees\"]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/plainLLM/openai/v1/chat/completions",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "plainLLM",
+                        "openai",
+                        "v1",
+                        "chat",
+                        "completions"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "OpenAI - Embeddings",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n   \"input\": \"Hello please embed me\",\r\n   \"dimensions\": 50\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/plainLLM/openai/openai/deployments/:deploymentName/embeddings",
+                      "host": ["{{base_url}}"],
+                      "path": [
+                        "plainLLM",
+                        "openai",
+                        "openai",
+                        "deployments",
+                        ":deploymentName",
+                        "embeddings"
+                      ],
+                      "variable": [
+                        {
+                          "key": "deploymentName",
+                          "value": "text-embedding-3-large"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AiSearch",
+          "item": [
+            {
+              "name": "Get Documents",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"search\": \"Process steps in parallel Pipeline\",\r\n  \"count\": true,\r\n  \"queryType\": \"semantic\",\r\n  \"semanticConfiguration\": \"default\",\r\n   \"top\": 5\r\n    // \"helixSearch\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/aiSearch/getRecords",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "aiSearch", "getRecords"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "File",
+          "item": [
+            {
+              "name": "Get Access to File",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/download/:fileName/datasource/:datasourceId",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "v1",
+                    "download",
+                    ":fileName",
+                    "datasource",
+                    ":datasourceId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "fileName",
+                      "value": "<fileName>"
+                    },
+                    {
+                      "key": "datasourceId",
+                      "value": "<datasourceId>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "auth": {
+            "type": "basic",
+            "basic": [
+              {
+                "key": "password",
+                "value": "{{apiKey}}",
+                "type": "string"
+              },
+              {
+                "key": "username",
+                "value": "{{username}}",
+                "type": "string"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [""]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [""]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Customer",
+          "item": [
+            {
+              "name": "Api Key",
+              "item": [
+                {
+                  "name": "Create new api key",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"description\": \"My new key\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/customer/apiKey",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "customer", "apiKey"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "List all api keys",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/customer/apiKey",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "customer", "apiKey"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get api key by id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/customer/apiKey/:id",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "customer", "apiKey", ":id"],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<apiKeyId>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Delete api key",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/v1/customer/apiKey/:id",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "customer", "apiKey", ":id"],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<apiKeyId> "
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Get customer",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/customer",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "customer"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update customer settings",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"summarizeConversationSystemMessage\": \"Act as an assistant who summarizes each conversation. Retain detailed technical information while condensing the overall context and flow of the conversation into high-level points. Present the summary in bullet points. Using a maximum of 250 tokens.\",\r\n    \"reactOnUserMessageSystemMessage\": \"If the <UserPrompt> provides a question, answer the question based on previous interactions  and the given context <Sources>. Answer ONLY based on the facts listed in the sources <Sources> below and previous interactions <History>. If the user just stated information for later use acknowledge that info and ask for further steps.\",\r\n    \"sourceLinkInstructionSystemMessage\": \"# HOW TO INCLUDE SOURCES AND CITATIONS IN THE ANSWERS\\\\nYou are going to be provided with a <UserPrompt> and <Sources>, the <Sources> contain <context> items that you can use to support your answer.\\\\nEach <context> item is associated with a fileId that you have to use to reference the source on the bottom of your response.\\\\n<context> items can be part of the same file and thus have the same fileId but a deviating citationId.\\\\n## Input Example:\\\\n<UserPrompt>\\\\n        What do you think is the best way to learn a new language?\\\\n<\\/UserPrompt>\\\\n\\\\n  \\\\n<Sources>\\\\n        <context citationId='1' fileId='someId1'> There are language apps like Duoling that can help with learning a language. <\\/context>\\\\n        <context citationId='2' fileId='someId2'> German is a hard language to learn. Languages like Spanish tend to be easier. <\\/context>\\\\n        <context citationId='3'> A good way of learning in General is stay consistent and to not overwhelm yourself. <\\/context>\\\\n        <context citationId='4' fileId='someId1'> getting into everyday conversations is usefull although frightening to a lot of people. Be brave and learn by using the language you want to learn. <\\/context>\\\\n\\t<context citationId='5' fileId='someId3'> Consistency is the key to learning a new language. <\\/context>\\\\n<\\/Sources>\\\\n## Steps to Follow:\\\\n1. You will be provided with a <Sources> and a <UserPrompt> section.\\\\n2. Find an answer to the <UserPrompt> based on the <context> items provided in the <Sources> section and the previous message history.\\\\n3. Cite all fileIds of the sources used in the response with used by their citation number in brackets after their use, e.g. [1]. Only cite sources that have a fileId provided.\\\\n4. Utilize the provided context (e.g. <context citationId='x' fileId='someIdy'>) for the citation at the end of the response as shown in the Output Example below.\\\\n5. The list of sources\\/citations at the end of the response does only include the citationIds used in the citation from within the response text in brackets followed by the fileId y without brackets (e.g. '[x] y' -> '[1][4] someId1' or '[5] someId3')\\\\n6. Several citationIds can lead to the same fileId and should be merged in one line, (e.g. '[1][4] someId1')\\\\n## Output Example:\\\\nThe best way to learn a new language is to stay consistent and not overwhelm yourself.[5] It is also helpful to use language apps like Duolingo\\\\nand to engage in everyday conversations to practice the language. [1][4] Being brave and using the language you want to learn in conversations\\\\ncan be a great way to improve your skills. [4]\\\\n    \\\\n- [1][4] someId1\\\\n- [5] someId3\\\\n## Additional Notes:\\\\n### Error Handling:  \\\\n- If no sources are found, provide the best possible answer based on available information.  \\\\n### Consistency:  \\\\n- Ensure all responses adhere to the above instructions consistently.  \\\\n- Double-check citation numbers and fileIds for accuracy.  \\\\n### Fallback Instructions:  \\\\n- If unable to follow the primary instructions, provide a clear and concise answer without citations.\",\r\n    \"generateSearchQuerySystemMessage\": \"You are an intelligent AI assistant, your primary function is to craft precise search queries that will be utilized by the Cognitive Search system to retrieve relevant documents according to the given chat history. Your output should consist solely of the formulated question that is optimized for search effectiveness. OUTPUT only the created question. OUTPUT in the language of the last user prompt. Using a maximum of 250 tokens.\",\r\n    \"welcomeSystemMessage\": \"Hello and welcome to your personal assistant! Ask me anything! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n    \"topN\": 7,\r\n    \"sourceLinkActive\": true,\r\n    \"dynamicNActive\": false,\r\n    \"temperature\": 0.0,\r\n    \"maxResponseTokens\": 1200, \r\n    \"topP\": 0.2,\r\n    \"presencePenalty\": 0,\r\n    \"frequencyPenalty\": 0,\r\n    \"stop\": null,\r\n    \"historyCount\": 10,\r\n    \"loadBalancerRegion\": \"emea\",\r\n    \"defaultGptVersion\": \"gpt-4o\",\r\n    \"defaultEmbeddingVersion\": \"text-embedding-ada-002\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/customer/settings?id=<customer id>",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "customer", "settings"],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update customer frontend settings",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"frontendSettings\": {\r\n        \"welcomeSystemMessage\": \"Hello and welcome! Ask me anything and I will find a Siemens product according to the specification typped! \\uD83D\\uDE0A\\r\\n\\r\\nTo reset the chat history insert: \\/reset\\r\\n\\r\\nIf you need help insert: \\/help\",\r\n        // \"hintTextButtonText\": \"Click on the blue icon to reset the history\",\r\n        // \"termsOfUseText\": \"Custom terms of use text\",\r\n        // \"historyResetMessage\": \"The history has been cleared\",\r\n        \"filterButtons\": [\r\n            {\r\n                \"displayName\": \"Test\",\r\n                \"keywords\": [\r\n                    \"VSR WIKI\"\r\n                ],\r\n                \"filter\": [\r\n                    \"folder1 eq 'tree1'\"\r\n                ],\r\n                \"fieldType\": \"Default\"\r\n                // \"fieldType\": \"ChoiceSet\",\r\n                // \"placeholder\": \"Field placeholder\",\r\n                // \"level\": 1,\r\n                // \"isMultiSelect\": true\r\n            },\r\n            {\r\n                \"displayName\": \"Button2\",\r\n                \"keywords\": [\r\n                    \"keyword3\",\r\n                    \"keyword4\"\r\n                ],\r\n                \"filter\": [\r\n                    \"folder1 eq 'tree2'\"\r\n                ],\r\n                \"fieldType\": \"Default\"\r\n                // \"fieldType\": \"ChoiceSet\",\r\n                // \"placeholder\": \"Field placeholder\",\r\n                // \"level\": 1\r\n                // \"isMultiSelect\": true\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/customer/frontendSettings?id=<customer id>",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "customer", "frontendSettings"],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<customer id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete customer",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/customer",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "customer"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Datasource",
+          "item": [
+            {
+              "name": "List all datasources",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "datasource"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get datasource by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/datasource/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "datasource", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<datasource id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update datasource by id",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"azureBlobStorage\": {\r\n            \"connectionString\": \"<connection string from azure blob storage\",\r\n            \"containerName\": \"<name of container in azure blob storage>\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/datasource/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "datasource", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<datasource id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create datasource",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"azureBlobStorage\": {\r\n            \"connectionString\": \"<connection string from azure blob storage\",\r\n            \"apiKey\": \"<api key from azure blob storage\",\r\n            \"containerName\": \"<name of container in azure blob storage>\"\r\n        },\r\n        \"sourceLinkActive\": true,\r\n        \"useMarkdown\": true\r\n    },\r\n    \"aiSearch\": {\r\n        \"skillsetName\": \"embeddings-relativepath-skillset\"\r\n    },\r\n    \"keywords\": []\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/datasource",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "datasource"]
+                }
+              },
+              "response": [
+                {
+                  "name": "Create datasource (blob)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"azureBlobStorage\": {\r\n            \"connectionString\": \"<connection string from azure blob storage\",\r\n            \"containerName\": \"<name of container in azure blob storage>\"\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": []\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/datasource",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "datasource"]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "Text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Create datasource (website)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"website\": {\r\n            \"rootUrls\": [\r\n                \"https://www.abola.pt\"\r\n            ],\r\n            \"urlWhiteList\": [\r\n                \"<white list entry>\"\r\n            ],\r\n            \"recursionDepth\": 2,\r\n            \"contentCssSelectors\": [],\r\n            \"crawlCssSelectors\": [],\r\n            \"scrollableElementSelector\": \"body\",\r\n            \"lazyLoadingEnforced\": false\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": []\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/datasource",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "datasource"]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "Text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Create datasource (sharepoint)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"sharepoint\": {\r\n            \"url\": \"<sharepoint url like: https://siemens.sharepoint.com/teams/DI-GAIA-DEV>\",\r\n            \"elements\": [\r\n                \"lists\",\r\n                \"pages\"\r\n            ],\r\n            \"whiteList\": [],\r\n            \"pageWhiteList\": []\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": []\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/datasource",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "datasource"]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "Text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Create datasource (polarion)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"polarion\": {\r\n            \"endpoint\": \"https://apepolarion-dev-2310.plmmscloudsolutions.com/polarion\",\r\n            \"accessToken\": \"<accessToken>\",\r\n            \"project\": \"AKM_Kn_Artifact_Template_Project\",\r\n            \"query\": \"type:(akm_checklist akm_exmpl_del akm_guidance akm_howto akm_lessons akm_practice akm_template akm_white_paper) AND status:published\",\r\n            \"fields\": [\r\n                \"description\",\r\n                \"status\",\r\n                \"updated\",\r\n                \"title\"\r\n            ]\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": []\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/datasource",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "datasource"]
+                    }
+                  },
+                  "_postman_previewlanguage": "Text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Create datasource (api)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"api\": {\r\n            \"endpoint\": \"<api-route>\",\r\n            \"authorizationHeader\": \"<bearer or basic token>\",\r\n            \"extraHeaders\": [\r\n                {\r\n                    \"key\": \"<key>\",\r\n                    \"value\": \"<value>\"\r\n                }\r\n            ],\r\n            \"fileNameField\": \"<schema definition of the field defining the fielName (unique)>\",\r\n            \"payloadField\": \"<schema deginition of the field defining what is the payload (array with items to be chunked)>\",\r\n            \"includeFields\": [],\r\n            \"excludeFields\": [],\r\n            \"updatedAtField\": \"<schema definition of the field that defines the date within an item in the payload when the item was modified last>\"\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": []\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/datasource",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "datasource"]
+                    }
+                  },
+                  "_postman_previewlanguage": "Text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Create datasource (wiki)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"displayName\": \"<datasource-name>\",\r\n    \"frequency\": \"24h\",\r\n    \"settings\": {\r\n        \"api\": {\r\n            \"baseUrl\": \"<baseUrl>\"\r\n        }\r\n        // \"chunkSize\": 2000,\r\n        // \"chunkOverlap\": 15,\r\n        // \"defaultLanguage\": \"en\",\r\n        // \"delimiter\": [\">\", \"}\"],\r\n        // \"excludeByRegex\": [\"myRegex1\"],\r\n        // \"includeByRegex\": \"[\"myRegex2\", \"myRegex3\"]\",\r\n        // \"ocrActive\": false,\r\n        // \"preventXMLToJSON\": \"false\",\r\n        // \"sourceLinkActive\": \"true\",\r\n        // \"textSplitterStrategy\": \"delimiter\",\r\n        // \"translationActive\": false,\r\n        // \"useMarkdown\": \"true\",\r\n    },\r\n    \"keywords\": []\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/v1/datasource",
+                      "host": ["{{base_url}}"],
+                      "path": ["v1", "datasource"]
+                    }
+                  },
+                  "_postman_previewlanguage": "Text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "Delete Datasource by Id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/datasource/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "datasource", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<datasource id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "KPI",
+          "item": [
+            {
+              "name": "Get KPI",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/kpi?from=2024-03-01&to=2024-05-13&scale=day&type=embedding,total,chatRequest,translation",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "kpi"],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2024-03-01",
+                      "description": "ISODate"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2024-05-13",
+                      "description": "ISODate"
+                    },
+                    {
+                      "key": "scale",
+                      "value": "day",
+                      "description": "[minute,hour,day,month,week,year]"
+                    },
+                    {
+                      "key": "type",
+                      "value": "embedding,total,chatRequest,translation",
+                      "description": "[embedding,total,chatRequest,translation,subscription,customCharge]"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Agent",
+          "item": [
+            {
+              "name": "List all Agents",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/admin/agent",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "admin", "agent"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Agent by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/agent/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "agent", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Agent",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"apiKey\": \"blablabla\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/agent/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "agent", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Agent",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"displayName\": \"<agent name>\",\r\n    \"type\": \"react\", //or custom\r\n    \"description\": \"<description of agent>\",\r\n    \"systemMessage\": \"<agent system message>\",\r\n    \"iterationLimit\": 3,\r\n    \"tracingSpace\": \"\",\r\n    \"tracingProject\": \"\",\r\n    \"tracingKey\": \"\",\r\n    \"bindTools\": [\r\n                    {\r\n                        \"type\": \"rag\",\r\n                        \"agentToolApiKey\": \"\",\r\n                        \"description\": \"\",\r\n                        \"agentToolName\": \"\"\r\n                    },\r\n                    {\r\n                        \"type\": \"bing\",\r\n                        \"agentToolApiKey\": \"\",\r\n                        \"description\": \"\",\r\n                        \"agentToolName\": \"\"\r\n                    }\r\n                ],\r\n    \"settings\":\r\n    {\r\n        \"agentDeploymentName\": \"\",\r\n        \"agentApiVersion\": \"\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/agent",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "agent"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Agent",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/agent/:id",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "agent", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<id>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1",
+              "host": ["{{base_url}}"],
+              "path": ["v1"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "basic",
+        "basic": [
+          {
+            "key": "password",
+            "value": "{{customer_api_key}}",
+            "type": "string"
+          },
+          {
+            "key": "username",
+            "value": "",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "inherit"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:7000",
+      "type": "string"
+    },
+    {
+      "key": "worker_base_url",
+      "value": "http://127.0.0.1:7001",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "florian.prechtl@siemens.com",
+      "type": "string"
+    },
+    {
+      "key": "api_key",
+      "value": "any_api_key",
+      "type": "string"
+    },
+    {
+      "key": "customer_api_key",
+      "value": "customer_api_key",
+      "type": "string"
+    }
+  ]
+}
