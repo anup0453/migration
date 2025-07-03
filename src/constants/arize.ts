@@ -1,0 +1,15 @@
+export enum ArizeSpanTypeEnum {
+  FINAL_ANSWER = 'Final Answer',
+  CHAT_CHAIN = 'Chat Chain',
+  GENERATE_QUESTION = 'Generate Question',
+  PROCESS_DOCUMENTS = 'Process Documents',
+  RETRIEVED_RECORDS = 'Retrieved Record',
+  GENERATE_HISTORY = 'Generate History',
+  SOURCELINK_REPLACEMENT = 'Sourcelink Replacement',
+  EMBEDDING = 'Embedding',
+  CHAT_REQUEST = 'Chat Request',
+  CHAT_REQUEST_WITH_INTERNAL_TOOLS = 'Chat Request with Internal Tools',
+  BING_SEARCH_TOOL_CALL = 'Bing Search Tool Call',
+  SNOWFLAKE_TOOL_CALL = 'Snowflake Tool Call',
+  LANGCHAIN = 'Langchain',
+}
