@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "compilerOptions": {
+    "lib": ["es2022", "DOM"], // specifies which default set of type definitions to use ("DOM", "ES6", etc)
+    "skipLibCheck": true, // Skip type checking of all declaration files (*.d.ts)
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "module": "NodeNext",
+    "outDir": "./dist", // .js (as well as .d.ts, .js.map, etc.) files will be emitted into this directory.,
+    "removeComments": true, // Strips all comments from TypeScript files when converting into JavaScript- you rarely read compiled code so this saves space
+    "target": "es2022", // Target environment. Most modern browsers support ES6, but you may want to set it to newer or older. (defaults to ES3)
+    "esModuleInterop": true, // fixes some issues TS originally had with the ES6 spec where TypeScript treats CommonJS/AMD/UMD modules similar to ES6 module
+    "sourceMap": true // enables the use of source maps for debuggers and error reporting etc
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules/**/*", "docs/**/*"]
+}
